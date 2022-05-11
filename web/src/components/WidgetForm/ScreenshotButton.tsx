@@ -3,7 +3,11 @@ import html2canvas from 'html2canvas'
 import { useState } from "react";
 import { Loading } from "../Loading";
 
-export function ScreenshotButton() {
+interface screenshotButtonProps {
+  onScreenshotTook: (screenshot: string) => void
+}
+
+export function ScreenshotButton({ onScreenshotTook }: screenshotButtonProps) {
 
   const [isTakingScreenshot, setIsTakingScreenshot] = useState(false)
 
@@ -12,6 +16,7 @@ export function ScreenshotButton() {
 
     const canvas = await html2canvas(document.querySelector('html')!)
     const base64image = canvas.toDataURL('image/png')
+    onScreenshotTook(base64image)
     console.log(base64image)
 
     setIsTakingScreenshot(false)
