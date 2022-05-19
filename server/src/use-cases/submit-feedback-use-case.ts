@@ -1,3 +1,4 @@
+import { MailAdapter } from "../adapters/mail-adapter"
 import { FeecbacksRepository } from "../repositories/feedbacks-repository"
 
 interface SubmitFeedbackUseCaseRequest {
@@ -7,13 +8,11 @@ interface SubmitFeedbackUseCaseRequest {
 }
 
 export class SubmitFeedbackUseCase {
-  private feedbacksRepository: FeecbacksRepository
 
   constructor(
-    feedbacksRespository: FeecbacksRepository
-  ) {
-    this.feedbacksRepository = feedbacksRespository
-  }
+    private feedbacksRepository: FeecbacksRepository,
+    private mailAdapter: MailAdapter
+  ) {}
 
   async execute(request: SubmitFeedbackUseCaseRequest) {
     const { type, comment, Screenshot } = request
@@ -22,6 +21,16 @@ export class SubmitFeedbackUseCase {
       type,
       comment,
       Screenshot
+    })
+
+    await this.mailAdapter.sendMail({
+      subject: 'Novo Feedback',
+      body:  [
+        `<div style="font-family: sans-serif; font-size: 16px; color: #111;">`,
+        `<p>Tipo de feedback: ${type}</p>`,
+        `<p>Comentário: ${comment}</p>`,
+        `</div>`
+      ].join('\n')
     })
   }
 }
