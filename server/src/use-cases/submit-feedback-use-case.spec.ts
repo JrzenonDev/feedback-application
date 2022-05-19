@@ -10,7 +10,7 @@ describe('Submit feedback', () => {
     await expect(submitFeedback.execute({
       type: 'BUG',
       comment: 'Example comment',
-      Screenshot: 'test.jpg'
-    })).resolves.not.toThrow
+      Screenshot: 'data:image/png;base64,dsadasdasdasdasdas'
+    })).resolves.not.toThrow()
   })
 })
