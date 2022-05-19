@@ -17,7 +17,7 @@ export function FeedbackContentStep({
   onFeedbackSent
 }: FeedbackContentStepProps) {
 
-  const [screenshot, setScreenshot] = useState<string | null>(null)
+  const [Screenshot, setScreenshot] = useState<string | null>(null)
   const [comment, setComment] = useState('')
 
   const feedbackTypeInfo = feedbackTypes[feedbackType]
@@ -25,7 +25,7 @@ export function FeedbackContentStep({
   function handleSubmitFeedback(event: FormEvent) {
     event.preventDefault()
     console.log({
-      screenshot,
+      Screenshot,
       comment
     })
 
@@ -60,7 +60,7 @@ export function FeedbackContentStep({
         <footer className="flex gap-2 mt-2">
 
           <ScreenshotButton
-            screenshot={screenshot}
+            Screenshot={Screenshot}
             onScreenshotTook={setScreenshot}
           />
 
